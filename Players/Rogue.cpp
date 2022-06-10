@@ -20,7 +20,6 @@ void Rogue::heal(int HPToAdd) {
     }
 }
 
-
 void Rogue::addCoins(int coinsToAdd) {
     if(coinsToAdd>0){
         this->m_coins += 2*coinsToAdd;
@@ -31,3 +30,6 @@ int Rogue::getAttackStrength() const {
     return m_level + m_force;
 }
 
+std::ostream &Rogue::operator<<(std::ostream& os) {
+    printPlayerDetails(os, m_name, "Rogue", m_level, m_force, m_HP, m_coins);
+}

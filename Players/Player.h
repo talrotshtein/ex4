@@ -15,11 +15,11 @@ protected:
     int m_level;
 
 public:
-    Player(const std::string name, int HP=100, int force=5);
+    Player(const std::string &name, int HP=100, int force=5);
     Player(const Player& player) = default;
     virtual ~Player() = default;
     Player& operator=(const Player& player) = default;
-    //virtual void printInfo() const = 0;
+    virtual std::ostream& operator<<(std::ostream& os) = 0;
     void levelUp();
     int getLevel() const;
     void buff(int forceToAdd);
