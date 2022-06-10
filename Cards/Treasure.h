@@ -7,7 +7,7 @@
 
 class Treasure : public Card{
 public:
-    Treasure();
+    Treasure() : Card("Treasure"){}
     void applyEncounter(Player& player) const override;
     std::ostream& operator<<(std::ostream& os) override;
 };

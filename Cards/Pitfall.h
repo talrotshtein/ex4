@@ -8,7 +8,7 @@
 
 class Pitfall : public Card{
 public:
-    Pitfall();
+    Pitfall() : Card("Pitfall"){}
     void applyEncounter(Player& player) const override;
     std::ostream& operator<<(std::ostream& os) override;
 };

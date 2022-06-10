@@ -5,10 +5,6 @@
 
 static const int COINS_TO_ADD = 10;
 
-Treasure::Treasure() {
-    this->m_name = "Treasure";
-}
-
 void Treasure::applyEncounter(Player &player) const {
     player.addCoins(COINS_TO_ADD);
     printTreasureMessage();

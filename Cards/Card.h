@@ -11,7 +11,7 @@ class Card{
 protected:
     std::string m_name;
 public:
-    Card() = default;
+    Card(const std::string &name);
     virtual void applyEncounter(Player& player) const = 0;
     virtual std::ostream& operator<<(std::ostream& os) = 0;
 };

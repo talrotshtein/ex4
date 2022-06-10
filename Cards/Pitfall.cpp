@@ -3,12 +3,7 @@
 //
 #include "Pitfall.h"
 
-static const int COINS_TO_ADD = 10;
 static const int HP_TO_REMOVE = 10;
-
-Pitfall::Pitfall() {
-    this->m_name = "Pitfall";
-}
 
 void Pitfall::applyEncounter(Player &player) const {
     bool isRogue = true;
