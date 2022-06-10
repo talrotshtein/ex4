@@ -7,7 +7,7 @@
 
 class Player{
 
-private:
+protected:
     std::string m_name;
     int m_coins;
     int m_force;
@@ -19,12 +19,12 @@ public:
     Player(const Player& player) = default;
     virtual ~Player() = default;
     Player& operator=(const Player& player) = default;
-    virtual void printInfo() const = 0;
+    //virtual void printInfo() const = 0;
     void levelUp();
     int getLevel() const;
-    virtual void buff(int forceToAdd) = 0;
+    void buff(int forceToAdd);
     virtual void heal(int HPToAdd) = 0;
-    virtual void damage(int HPToRemove) = 0;
+    void damage(int HPToRemove);
     bool isKnockedOut() const;
     virtual void addCoins(int coinsToAdd) = 0;
     bool pay(int coinsToPay);

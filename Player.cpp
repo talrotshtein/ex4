@@ -44,6 +44,26 @@ int Player::getLevel() const
     return this->m_level;
 }
 
+void Player::damage(int HPToRemove) {
+    if(HPToRemove <= 0){
+        return;
+    }
+    if(this->m_HP - HPToRemove <= 0)
+    {
+        this->m_HP = 0;
+    }
+    else
+    {
+        this->m_HP -= HPToRemove;
+    }
+}
+
+void Player::buff(int forceToAdd) {
+    if(forceToAdd>0){
+        this->m_force += forceToAdd;
+    }
+}
+
 bool Player::pay(int coinsToPay) {
     if(coinsToPay <= 0){
         return true;
