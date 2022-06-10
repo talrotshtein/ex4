@@ -17,4 +17,5 @@ void Pitfall::applyEncounter(Player &player) const {
 
 std::ostream &Pitfall::operator<<(std::ostream &os) {
     printCardDetails(os, "Pitfall");
+    printEndOfCardDetails(os);
 }
