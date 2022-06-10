@@ -9,8 +9,8 @@
 class Fighter : public Player{
 
 public:
-    Fighter (const std::string &name, int HP=100, int force=5) :
-            Player(name, HP, force){}
+    Fighter (const std::string &name, const std::string &type) :
+            Player(name, type){}
     Fighter(const Fighter& fighter) = default;
     Fighter& operator=(const Fighter& fighter) = default;
     ~Fighter() override = default;

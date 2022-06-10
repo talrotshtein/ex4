@@ -7,10 +7,11 @@
 #define EX4_ROGUE_H
 
 class Rogue : public Player{
-
+private:
+    std::string m_class;
 public:
-    Rogue (const std::string &name, int HP=100, int force=5) :
-        Player(name, HP, force){}
+    Rogue (const std::string &name, const std::string &type) :
+        Player(name, type){}
     Rogue(const Rogue& rogue) = default;
     Rogue& operator=(const Rogue& rogue) = default;
     ~Rogue() override = default;

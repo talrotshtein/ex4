@@ -9,13 +9,14 @@ class Player{
 
 protected:
     std::string m_name;
+    std::string m_type;
     int m_coins;
     int m_force;
     int m_HP;
     int m_level;
 
 public:
-    Player(const std::string &name, int HP=100, int force=5);
+    Player(const std::string &name, const std::string &type);
     Player(const Player& player) = default;
     virtual ~Player() = default;
     Player& operator=(const Player& player) = default;
@@ -29,6 +30,7 @@ public:
     virtual void addCoins(int coinsToAdd) = 0;
     bool pay(int coinsToPay);
     virtual int getAttackStrength() const = 0;
+    const std::string& getType() const;
 };
 
 #endif //EX4_PLAYER_H

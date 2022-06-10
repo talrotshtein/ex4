@@ -10,23 +10,12 @@ static const int MAX_HP = 100;
 static const int DEFAULT_FORCE = 5;
 static const int DEFAULT_COINS = 10;
 
-Player::Player(const std::string name, int HP, int force)
+Player::Player(const std::string &name, const std::string &type)
 {
     this->m_name = name;
-    if(HP > 0){
-        this->m_HP = HP;
-    }
-    else if(HP<=0)
-    {
-        this->m_HP = MAX_HP;
-    }
-    if(force >0){
-        this->m_force = force;
-    }
-    else if(force<=0)
-    {
-        this->m_force = DEFAULT_FORCE;
-    }
+    this->m_type = type;
+    this->m_force = DEFAULT_FORCE;
+    this->m_HP = MAX_HP;
     this->m_coins = DEFAULT_COINS;
     this->m_level = 1;
 }
@@ -84,3 +73,6 @@ bool Player::isKnockedOut() const{
     return false;
 }
 
+const std::string &Player::getType() const {
+    return this->m_type;
+}

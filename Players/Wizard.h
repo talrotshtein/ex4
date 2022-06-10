@@ -8,8 +8,8 @@
 #define EX4_WIZARD_H
 
 class Wizard : public Player{
-    Wizard (const std::string &name, int HP=100, int force=5) :
-            Player(name, HP, force){}
+    Wizard (const std::string &name, const std::string &type) :
+            Player(name, type){}
     Wizard(const Wizard& wizard) = default;
     Wizard& operator=(const Wizard& wizard) = default;
     ~Wizard() override = default;
