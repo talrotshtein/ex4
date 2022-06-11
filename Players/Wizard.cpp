@@ -29,6 +29,8 @@ int Wizard::getAttackStrength() const {
     return m_level + m_force;
 }
 
-std::ostream &Wizard::operator<<(std::ostream& os) {
+std::ostream &Wizard::print(std::ostream &os) const {
     printPlayerDetails(os, m_name, "Wizard", m_level, m_force, m_HP, m_coins);
+    return os;
 }
+

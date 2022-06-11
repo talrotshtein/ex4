@@ -15,7 +15,8 @@ void Fairy::applyEncounter(Player &player) const {
     printFairyMessage(isWizard);
 }
 
-std::ostream &Fairy::operator<<(std::ostream &os) {
-    printCardDetails(os, "Wizard");
+std::ostream &Fairy::print(std::ostream &os) const {
+    printCardDetails(os, "Fairy");
     printEndOfCardDetails(os);
 }
+

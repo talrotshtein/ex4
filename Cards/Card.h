@@ -13,7 +13,8 @@ protected:
 public:
     Card(const std::string &name);
     virtual void applyEncounter(Player& player) const = 0;
-    virtual std::ostream& operator<<(std::ostream& os) = 0;
+    virtual std::ostream& print(std::ostream& os) const = 0;
+    friend std::ostream& operator<<(std::ostream& os, const Card& card);
 };
 
 #endif //EX4_CARD_H

@@ -10,7 +10,7 @@ class Merchant : public Card{
 public:
     Merchant() : Card("Merchant"){}
     void applyEncounter(Player& player) const override;
-    std::ostream& operator<<(std::ostream& os) override;
+    std::ostream& print(std::ostream& os) const override;
 };
 
 #endif //EX4_MERCHANT_H

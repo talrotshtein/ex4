@@ -20,10 +20,11 @@ public:
     Player(const Player& player) = default;
     virtual ~Player() = default;
     Player& operator=(const Player& player) = default;
-    virtual std::ostream& operator<<(std::ostream& os) = 0;
     void levelUp();
     int getLevel() const;
+    int getCurrentHp() const;
     int getNumberOfCoins() const;
+    void nerf(int forceToReduce);
     const std::string& getPlayerName() const;
     void buff(int forceToAdd);
     virtual void heal(int HPToAdd) = 0;
@@ -33,6 +34,9 @@ public:
     bool pay(int coinsToPay);
     virtual int getAttackStrength() const = 0;
     const std::string& getType() const;
+
+    virtual std::ostream& print(std::ostream& os) const = 0;
+    friend std::ostream& operator<<(std::ostream& os, const Player& player);
 };
 
 #endif //EX4_PLAYER_H

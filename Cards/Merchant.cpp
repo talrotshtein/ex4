@@ -30,7 +30,7 @@ void Merchant::applyEncounter(Player &player) const {
     }
 }
 
-std::ostream &Merchant::operator<<(std::ostream &os) {
+std::ostream &Merchant::print(std::ostream &os) const {
     printCardDetails(os, "Merchant");
     printEndOfCardDetails(os);
 }

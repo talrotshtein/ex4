@@ -15,10 +15,10 @@ public:
     Rogue(const Rogue& rogue) = default;
     Rogue& operator=(const Rogue& rogue) = default;
     ~Rogue() override = default;
-    std::ostream& operator<<(std::ostream& os) override;
     void heal(int HPToAdd) override;
     void addCoins(int coinsToAdd) override;
     int getAttackStrength() const override;
+    std::ostream& print(std::ostream& os) const override;
 };
 
 #endif //EX4_ROGUE_H

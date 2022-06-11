@@ -9,7 +9,7 @@ class Fairy : public Card{
 public:
     Fairy() : Card("Pitfall"){}
     void applyEncounter(Player& player) const override;
-    std::ostream& operator<<(std::ostream& os) override;
+    std::ostream& print(std::ostream& os) const override;
 };
 
 #endif //EX4_FAIRY_H

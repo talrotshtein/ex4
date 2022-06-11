@@ -16,7 +16,7 @@ void Barfight::applyEncounter(Player &player) const {
     printBarfightMessage(isFighter);
 }
 
-std::ostream &Barfight::operator<<(std::ostream &os) {
+std::ostream &Barfight::print(std::ostream &os) const {
     printCardDetails(os, "Barfight");
     printEndOfCardDetails(os);
 }

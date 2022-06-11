@@ -13,10 +13,10 @@ class Wizard : public Player{
     Wizard(const Wizard& wizard) = default;
     Wizard& operator=(const Wizard& wizard) = default;
     ~Wizard() override = default;
-    std::ostream& operator<<(std::ostream& os) override;
     void heal(int HPToAdd) override;
     void addCoins(int coinsToAdd) override;
     int getAttackStrength() const override;
+    std::ostream& print(std::ostream& os) const override;
 };
 
 #endif //EX4_WIZARD_H

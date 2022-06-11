@@ -30,6 +30,8 @@ int Rogue::getAttackStrength() const {
     return m_level + m_force;
 }
 
-std::ostream &Rogue::operator<<(std::ostream& os) {
+std::ostream &Rogue::print(std::ostream &os) const{
     printPlayerDetails(os, m_name, "Rogue", m_level, m_force, m_HP, m_coins);
+    return os;
 }
+

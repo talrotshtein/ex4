@@ -33,6 +33,10 @@ int Player::getLevel() const
     return this->m_level;
 }
 
+int Player::getCurrentHp() const {
+    return this->m_HP;
+}
+
 int Player::getNumberOfCoins() const {
     return this->m_coins;
 }
@@ -61,6 +65,16 @@ void Player::buff(int forceToAdd) {
     }
 }
 
+void Player::nerf(int forceToReduce) {
+    if(forceToReduce>0 && this->m_force - forceToReduce >= 0){
+        this->m_force -= forceToReduce;
+    }
+    else if(this->m_force - forceToReduce < 0)
+    {
+        this->m_force = 0;
+    }
+}
+
 bool Player::pay(int coinsToPay) {
     if(coinsToPay <= 0){
         return true;
@@ -83,4 +97,8 @@ bool Player::isKnockedOut() const{
 
 const std::string &Player::getType() const {
     return this->m_type;
+}
+
+std::ostream& operator<<(std::ostream& os, const Player& player){
+    return player.print(os);
 }

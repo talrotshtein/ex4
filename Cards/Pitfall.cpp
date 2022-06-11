@@ -15,7 +15,13 @@ void Pitfall::applyEncounter(Player &player) const {
     printPitfallMessage(isRogue);
 }
 
-std::ostream &Pitfall::operator<<(std::ostream &os) {
+std::ostream &Pitfall::print(std::ostream &os) const {
     printCardDetails(os, "Pitfall");
     printEndOfCardDetails(os);
 }
+
+/*
+std::ostream &Pitfall::operator<<(std::ostream &os) {
+    printCardDetails(os, "Pitfall");
+    printEndOfCardDetails(os);
+}*/
