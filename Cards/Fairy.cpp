@@ -18,5 +18,6 @@ void Fairy::applyEncounter(Player &player) const {
 std::ostream &Fairy::print(std::ostream &os) const {
     printCardDetails(os, "Fairy");
     printEndOfCardDetails(os);
+    return os;
 }
 

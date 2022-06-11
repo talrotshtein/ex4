@@ -27,5 +27,6 @@ void Vampire::applyEncounter(Player &player) const {
 std::ostream &Vampire::print(std::ostream &os) const {
     printMonsterDetails(os, FORCE, DAMAGE, LOOT, false);
     printEndOfCardDetails(os);
+    return os;
 }
 

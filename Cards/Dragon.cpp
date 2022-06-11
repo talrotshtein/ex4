@@ -24,4 +24,5 @@ void Dragon::applyEncounter(Player &player) const {
 std::ostream &Dragon::print(std::ostream &os) const {
     printMonsterDetails(os, FORCE, 0, LOOT, true);
     printEndOfCardDetails(os);
+    return os;
 }

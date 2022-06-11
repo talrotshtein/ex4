@@ -1,5 +1,23 @@
 #ifndef MTMCHKIN_H_
 #define MTMCHKIN_H_
+#include <string>
+#include <queue>
+#include <fstream>
+#include <memory>
+#include "Players/Player.h"
+#include "Cards/Card.h"
+#include "Cards/Vampire.h"
+#include "Cards/Barfight.h"
+#include "Cards/Dragon.h"
+#include "Cards/Fairy.h"
+#include "Cards/Goblin.h"
+#include "Cards/Merchant.h"
+#include "Cards/Pitfall.h"
+#include "Cards/Treasure.h"
+#include "Players/Rogue.h"
+#include "Players/Wizard.h"
+#include "Players/Fighter.h"
+#include "Exception.h"
 
 class Mtmchkin{
 
@@ -46,6 +64,12 @@ public:
     *          int - number of rounds played
     */
     int getNumberOfRounds() const;
+
+private:
+    std::queue<Card> m_deck;
+    std::queue<Player> m_players;
+    void checkAndPushCardType(std::string& line);
+    static std::string convertToString(char* a, int size);
 };
 
 
