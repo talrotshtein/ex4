@@ -23,6 +23,8 @@ public:
     virtual std::ostream& operator<<(std::ostream& os) = 0;
     void levelUp();
     int getLevel() const;
+    int getNumberOfCoins() const;
+    const std::string& getPlayerName() const;
     void buff(int forceToAdd);
     virtual void heal(int HPToAdd) = 0;
     void damage(int HPToRemove);

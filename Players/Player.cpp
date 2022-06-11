@@ -33,6 +33,14 @@ int Player::getLevel() const
     return this->m_level;
 }
 
+int Player::getNumberOfCoins() const {
+    return this->m_coins;
+}
+
+const std::string& Player::getPlayerName() const {
+    return this->m_name;
+}
+
 void Player::damage(int HPToRemove) {
     if(HPToRemove <= 0){
         return;
