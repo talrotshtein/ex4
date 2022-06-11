@@ -4,8 +4,8 @@
 #include "Mtmchkin.h"
 
 static const int MINIMUM_DECK_SIZE = 5;
-static const int MINIMUM_PLYAER_AMOUNT = 2;
-static const int MAXIMUM_PLYAER_AMOUNT = 6;
+static const int MINIMUM_PLAYER_AMOUNT = 2;
+static const int MAXIMUM_PLAYER_AMOUNT = 6;
 
 Mtmchkin::Mtmchkin(const std::string fileName) {
     std::ifstream source(fileName);
@@ -13,29 +13,107 @@ Mtmchkin::Mtmchkin(const std::string fileName) {
     {
         //add throw - DeckFileNotFound
     }
-    char line[256];
-    std::string stringLine;
-    while (source.getline(line, sizeof(line)))
+    std::string line;
+    int index  = 0;
+    while (std::getline(source, line))
     {
-        stringLine = Mtmchkin::convertToString(line,sizeof(line));
         //add try
-        checkAndPushCardType(stringLine);
+        checkAndPushCardType(line);
+        index++;
     }
-    if(m_deck.size() < MINIMUM_DECK_SIZE)
-    {
+    if(m_deck.size() < MINIMUM_DECK_SIZE) {
         //throw
     }
-    printStartGameMessage();
-    printEnterTeamSizeMessage();
-    std::string input;
-    std::cin >> input;
-    while (std::stoi(input) > MAXIMUM_PLYAER_AMOUNT && std::stoi(input) < MINIMUM_PLYAER_AMOUNT)
-    {
-        printInvalidTeamSize();
-        printEnterTeamSizeMessage();
-        std::cin >> input;
+    int numOfPlayers = receiveNumOfPlayersInput();
+    for (int i = 0; i < numOfPlayers; ++i) {
+        addNewPlayer();
     }
+}
 
+void Mtmchkin::addNewPlayer() {
+    std::string inputName;
+    std::string inputClass;
+    bool validName = false, validClass = false;
+    while (!validName && !validClass)
+    {
+        printInsertPlayerMessage();
+        std::cin >> inputName;
+        std::cin >> inputClass;
+        if(isNameValid(inputName)){
+            validName = true;
+        }
+        else{
+            printInvalidName();
+            continue;
+        }
+        if(isClassValid(inputClass)){
+            validClass = true;
+        }
+        else{
+            printInvalidClass();
+            continue;
+        }
+    }
+    pushNewPlayer(inputName, inputClass);
+}
+
+void Mtmchkin::pushNewPlayer(std::string& name, std::string& player_class) {
+    if(name == "Rogue")
+    {
+        m_players.push(*(std::unique_ptr<Rogue>(new Rogue(name, player_class))));
+    }
+    else if(name == "Wizard")
+    {
+        m_players.push(*(std::unique_ptr<Wizard>(new Wizard(name, player_class))));
+    }
+    else{
+        m_players.push(*(std::unique_ptr<Fighter>(new Fighter(name, player_class))));
+    }
+}
+
+bool Mtmchkin::isNameValid(std::string &name) {
+    if(name.size() > 15){
+        return false;
+    }
+    std::string::iterator iterator;
+    for (iterator = name.begin(); iterator < name.end(); iterator++) {
+        if(*iterator > 'z' || *iterator < 'a'){
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Mtmchkin::isClassValid(std::string &player_class) {
+    if(player_class != "Fighter" && player_class!="Wizard" && player_class != "Rogue"){
+        return false;
+    }
+    return true;
+}
+
+
+
+int Mtmchkin::receiveNumOfPlayersInput()
+{
+    std::string input;
+    int numOfPlayers;
+    bool validInput = false;
+    while (!validInput)
+    {
+        try{
+            printEnterTeamSizeMessage();
+            std::cin >> input;
+            numOfPlayers = stoi(input);
+            if(numOfPlayers > MAXIMUM_PLAYER_AMOUNT || numOfPlayers < MINIMUM_PLAYER_AMOUNT){
+                validInput = true;
+            }
+        }
+        catch(std::exception &e){
+            printInvalidTeamSize();
+            continue;
+        }
+    }
+    return numOfPlayers;
 }
 
 void Mtmchkin::checkAndPushCardType(std::string& line){
@@ -74,13 +152,4 @@ void Mtmchkin::checkAndPushCardType(std::string& line){
     //throw DeckFileFormatError;
 }
 
-static std::string convertToString(char* a, int size)
-{
-    int i;
-    std::string str = "";
-    for (i = 0; i < size; i++) {
-        str = str + a[i];
-    }
-    return str;
-}
 

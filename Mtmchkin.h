@@ -69,7 +69,11 @@ private:
     std::queue<Card> m_deck;
     std::queue<Player> m_players;
     void checkAndPushCardType(std::string& line);
-    static std::string convertToString(char* a, int size);
+    static int receiveNumOfPlayersInput();
+    void addNewPlayer();
+    static bool isNameValid(std::string& name);
+    static bool isClassValid(std::string& player_class);
+    void pushNewPlayer(std::string& name, std::string& player_class);
 };
 
 

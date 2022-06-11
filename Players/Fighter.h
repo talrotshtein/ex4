@@ -7,7 +7,6 @@
 #define EX4_FIGHTER_H
 
 class Fighter : public Player{
-
 public:
     Fighter (const std::string &name, const std::string &type) :
             Player(name, type){}

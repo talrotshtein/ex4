@@ -7,8 +7,6 @@
 #define EX4_ROGUE_H
 
 class Rogue : public Player{
-private:
-    std::string m_class;
 public:
     Rogue (const std::string &name, const std::string &type) :
         Player(name, type){}
