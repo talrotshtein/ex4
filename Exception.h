@@ -17,6 +17,7 @@ public:
     DeckFileFormatError(int index)
     {
         this->m_index = index;
+        this->m_message = "Deck File Error: File format error in line";
     }
 
     const char * what() const noexcept override

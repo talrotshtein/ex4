@@ -50,9 +50,9 @@ void Mtmchkin::playRound()
                 moveWinnerForward(i);
                 m_playersWon++;
             }
-            std::unique_ptr<Card> temp = std::move(m_deck.front());
-            m_deck.push(temp);
+            Card* temp = this->m_deck.front().get();
             m_deck.pop();
+            this->m_deck.push(std::unique_ptr<Card>(temp));
         }
     }
     if(isGameOver()){
