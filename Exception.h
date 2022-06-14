@@ -7,8 +7,7 @@
 
 class DeckFileNotFound : public std::exception{
 public:
-    const char * what()
-    {
+    const char * what() const noexcept override{
         return "Deck File Error: File not found";
     }
 };
@@ -20,24 +19,24 @@ public:
         this->m_index = index;
     }
 
-    const char * what()
+    const char * what() const noexcept override
     {
-        char message[64] = "Deck File Error: File format error in line";
+
         char index[32];
         sprintf(index, "%d", m_index);
-        strcat(message, index);
-        return message;
+        strcat(m_message, index);
+        return m_message;
     }
 
 private:
     int m_index;
+    char * m_message;
 };
 
 class DeckFileInvalidSize : public std::exception{
 public:
-    const char * what()
-    {
-        return "Deck File Error: Deck size is invalid";
+    const char * what() const noexcept override{
+        return  "Deck File Error: Deck size is invalid";
     }
 };
 

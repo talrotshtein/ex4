@@ -67,6 +67,8 @@ public:
 
 private:
     int m_round;
+    int m_deadPlayers;
+    int m_playersWon;
     std::queue<std::unique_ptr<Card>> m_deck;
     std::vector<std::unique_ptr<Player>> m_players;
     void checkAndPushCardType(std::string& line, int index);
@@ -75,6 +77,8 @@ private:
     static bool isNameValid(std::string& name);
     static bool isClassValid(std::string& player_class);
     void pushNewPlayer(std::string& name, std::string& player_class);
+    void moveDeadPlayerBack(int index);
+    void moveWinnerForward(int index);
 };
 
 

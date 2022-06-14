@@ -6,16 +6,19 @@
 static const int MINIMUM_DECK_SIZE = 5;
 static const int MINIMUM_PLAYER_AMOUNT = 2;
 static const int MAXIMUM_PLAYER_AMOUNT = 6;
+static const int MAXIMUM_PLAYER_LEVEL = 10;
 
 Mtmchkin::Mtmchkin(const std::string fileName)
 {
     m_round = 0;
+    m_deadPlayers = 0;
+    m_playersWon = 0;
     std::ifstream source(fileName);
     if(!source){
         throw DeckFileNotFound();
     }
     std::string line;
-    int index  = 0;
+    int index  = 1;
     while (std::getline(source, line))
     {
         checkAndPushCardType(line, index);
@@ -24,8 +27,8 @@ Mtmchkin::Mtmchkin(const std::string fileName)
     if(m_deck.size() < MINIMUM_DECK_SIZE) {
         throw DeckFileInvalidSize();
     }
-    int numOfPlayers = receiveNumOfPlayersInput();
-    for (int i = 0; i < numOfPlayers; ++i) {
+    int playersInGame = receiveNumOfPlayersInput();
+    for (int i = 0; i < playersInGame; ++i) {
         addNewPlayer();
     }
 }
@@ -33,7 +36,63 @@ Mtmchkin::Mtmchkin(const std::string fileName)
 void Mtmchkin::playRound()
 {
     printRoundStartMessage(++m_round);
+    for (int i = 0; i < m_players.size(); ++i)
+    {
+        if(!m_players[i]->isKnockedOut() && m_players[i]->getLevel() < MAXIMUM_PLAYER_LEVEL)
+        {
+            printTurnStartMessage(m_players[i]->getPlayerName());
+            m_deck.front()->applyEncounter(*m_players[i]);
+            if (m_players[i]->isKnockedOut()){
+                moveDeadPlayerBack( i);
+                m_deadPlayers++;
+            }
+            else if(m_players[i]->getLevel() == MAXIMUM_PLAYER_LEVEL){
+                moveWinnerForward(i);
+                m_playersWon++;
+            }
+            std::unique_ptr<Card> temp = std::move(m_deck.front());
+            m_deck.push(temp);
+            m_deck.pop();
+        }
+    }
+    if(isGameOver()){
+        printGameEndMessage();
+    }
+    printLeaderBoard();
+}
 
+void Mtmchkin::printLeaderBoard() const {
+    printLeaderBoardStartMessage();
+    for (int i = 0; i < m_players.size(); ++i)
+    {
+        printPlayerLeaderBoard(i+1, *m_players[i]);
+    }
+}
+
+void Mtmchkin::moveDeadPlayerBack(int index)
+{
+    int iterations = m_players.size() - 1 - m_deadPlayers;
+    for (int i = index; i < iterations; ++i)
+    {
+            std::swap(m_players[index], m_players[index + 1]);
+    }
+}
+
+void Mtmchkin::moveWinnerForward(int index)
+{
+    int iterations = index - m_playersWon;
+    for (int i = index; i < iterations; ++i)
+    {
+        std::swap(m_players[index], m_players[index - 1]);
+    }
+}
+
+int Mtmchkin::getNumberOfRounds() const {
+    return m_round;
+}
+
+bool Mtmchkin::isGameOver() const {
+    return m_playersWon + m_deadPlayers > 0;
 }
 
 void Mtmchkin::addNewPlayer() {
@@ -83,7 +142,7 @@ bool Mtmchkin::isNameValid(std::string &name) {
     }
     std::string::iterator iterator;
     for (iterator = name.begin(); iterator < name.end(); iterator++) {
-        if(*iterator > 'z' || *iterator < 'a'){
+        if((*iterator <= 'z' && *iterator >= 'a') || (*iterator <= 'Z' && *iterator >= 'A')){
             return false;
         }
     }

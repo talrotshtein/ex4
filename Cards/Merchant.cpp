@@ -20,13 +20,25 @@ void Merchant::applyEncounter(Player &player) const {
     }
     if(input[0] == '1')
     {
-        printMerchantSummary(std::cout, player.getPlayerName(), 1, HEAL_POINTS_PRICE);
-        player.heal(1);
+        if(player.getNumberOfCoins() >= HEAL_POINTS_PRICE){
+            printMerchantSummary(std::cout, player.getPlayerName(), 1, HEAL_POINTS_PRICE);
+            player.heal(1);
+        }
+        else{
+            printMerchantInsufficientCoins(std::cout);
+            printMerchantSummary(std::cout, player.getPlayerName(), 0, 0);
+        }
     }
     if(input[0] == '2')
     {
-        printMerchantSummary(std::cout, player.getPlayerName(), 2, FORCE_POINTS_PRICE);
-        player.buff(1);
+        if(player.getNumberOfCoins() >= FORCE_POINTS_PRICE) {
+            printMerchantSummary(std::cout, player.getPlayerName(), 2, FORCE_POINTS_PRICE);
+            player.buff(1);
+        }
+        else{
+            printMerchantInsufficientCoins(std::cout);
+            printMerchantSummary(std::cout, player.getPlayerName(), 0, 0);
+        }
     }
 }
 
