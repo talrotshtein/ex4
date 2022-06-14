@@ -7,7 +7,7 @@
 
 class Barfight : public Card{
 public:
-    Barfight() : Card("Pitfall"){}
+    Barfight() : Card("Barfight"){}
     void applyEncounter(Player& player) const override;
     std::ostream& print(std::ostream& os) const override;
 };

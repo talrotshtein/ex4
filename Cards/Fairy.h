@@ -7,7 +7,7 @@
 
 class Fairy : public Card{
 public:
-    Fairy() : Card("Pitfall"){}
+    Fairy() : Card("Fairy"){}
     void applyEncounter(Player& player) const override;
     std::ostream& print(std::ostream& os) const override;
 };

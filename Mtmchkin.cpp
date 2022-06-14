@@ -10,6 +10,7 @@ static const int MAXIMUM_PLAYER_LEVEL = 10;
 
 Mtmchkin::Mtmchkin(const std::string fileName)
 {
+    printStartGameMessage();
     m_round = 0;
     m_deadPlayers = 0;
     m_playersWon = 0;
@@ -44,21 +45,21 @@ void Mtmchkin::playRound()
             m_deck.front()->applyEncounter(*m_players[i]);
             if (m_players[i]->isKnockedOut()){
                 moveDeadPlayerBack( i);
+                i--;
                 m_deadPlayers++;
             }
             else if(m_players[i]->getLevel() == MAXIMUM_PLAYER_LEVEL){
                 moveWinnerForward(i);
                 m_playersWon++;
             }
-            Card* temp = this->m_deck.front().get();
+            std::unique_ptr<Card> temp = std::move(this->m_deck.front());
             m_deck.pop();
-            this->m_deck.push(std::unique_ptr<Card>(temp));
+            this->m_deck.push(std::move(temp));
         }
     }
     if(isGameOver()){
         printGameEndMessage();
     }
-    printLeaderBoard();
 }
 
 void Mtmchkin::printLeaderBoard() const {
@@ -92,7 +93,7 @@ int Mtmchkin::getNumberOfRounds() const {
 }
 
 bool Mtmchkin::isGameOver() const {
-    return m_playersWon + m_deadPlayers > 0;
+    return m_playersWon + m_deadPlayers == m_players.size();
 }
 
 void Mtmchkin::addNewPlayer() {
@@ -123,11 +124,11 @@ void Mtmchkin::addNewPlayer() {
 }
 
 void Mtmchkin::pushNewPlayer(std::string& name, std::string& player_class) {
-    if(name == "Rogue")
+    if(player_class == "Rogue")
     {
         m_players.push_back(std::unique_ptr<Rogue>(new Rogue(name, player_class)));
     }
-    else if(name == "Wizard")
+    else if(player_class == "Wizard")
     {
         m_players.push_back(std::unique_ptr<Wizard>(new Wizard(name, player_class)));
     }
@@ -142,7 +143,7 @@ bool Mtmchkin::isNameValid(std::string &name) {
     }
     std::string::iterator iterator;
     for (iterator = name.begin(); iterator < name.end(); iterator++) {
-        if((*iterator <= 'z' && *iterator >= 'a') || (*iterator <= 'Z' && *iterator >= 'A')){
+        if(!((*iterator <= 'z' && *iterator >= 'a') || (*iterator <= 'Z' && *iterator >= 'A'))){
             return false;
         }
     }
@@ -167,7 +168,7 @@ int Mtmchkin::receiveNumOfPlayersInput()
             printEnterTeamSizeMessage();
             std::cin >> input;
             numOfPlayers = stoi(input);
-            if(numOfPlayers > MAXIMUM_PLAYER_AMOUNT || numOfPlayers < MINIMUM_PLAYER_AMOUNT){
+            if(numOfPlayers <= MAXIMUM_PLAYER_AMOUNT && numOfPlayers >= MINIMUM_PLAYER_AMOUNT){
                 validInput = true;
             }
         }
