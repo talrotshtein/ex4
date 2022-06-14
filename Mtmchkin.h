@@ -66,9 +66,10 @@ public:
     int getNumberOfRounds() const;
 
 private:
-    std::queue<Card> m_deck;
-    std::queue<Player> m_players;
-    void checkAndPushCardType(std::string& line);
+    int m_round;
+    std::queue<std::unique_ptr<Card>> m_deck;
+    std::vector<std::unique_ptr<Player>> m_players;
+    void checkAndPushCardType(std::string& line, int index);
     static int receiveNumOfPlayersInput();
     void addNewPlayer();
     static bool isNameValid(std::string& name);

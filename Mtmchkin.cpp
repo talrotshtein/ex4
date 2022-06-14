@@ -7,27 +7,33 @@ static const int MINIMUM_DECK_SIZE = 5;
 static const int MINIMUM_PLAYER_AMOUNT = 2;
 static const int MAXIMUM_PLAYER_AMOUNT = 6;
 
-Mtmchkin::Mtmchkin(const std::string fileName) {
+Mtmchkin::Mtmchkin(const std::string fileName)
+{
+    m_round = 0;
     std::ifstream source(fileName);
-    if(!source)
-    {
-        //add throw - DeckFileNotFound
+    if(!source){
+        throw DeckFileNotFound();
     }
     std::string line;
     int index  = 0;
     while (std::getline(source, line))
     {
-        //add try
-        checkAndPushCardType(line);
+        checkAndPushCardType(line, index);
         index++;
     }
     if(m_deck.size() < MINIMUM_DECK_SIZE) {
-        //throw
+        throw DeckFileInvalidSize();
     }
     int numOfPlayers = receiveNumOfPlayersInput();
     for (int i = 0; i < numOfPlayers; ++i) {
         addNewPlayer();
     }
+}
+
+void Mtmchkin::playRound()
+{
+    printRoundStartMessage(++m_round);
+
 }
 
 void Mtmchkin::addNewPlayer() {
@@ -60,14 +66,14 @@ void Mtmchkin::addNewPlayer() {
 void Mtmchkin::pushNewPlayer(std::string& name, std::string& player_class) {
     if(name == "Rogue")
     {
-        m_players.push(*(std::unique_ptr<Rogue>(new Rogue(name, player_class))));
+        m_players.push_back(std::unique_ptr<Rogue>(new Rogue(name, player_class)));
     }
     else if(name == "Wizard")
     {
-        m_players.push(*(std::unique_ptr<Wizard>(new Wizard(name, player_class))));
+        m_players.push_back(std::unique_ptr<Wizard>(new Wizard(name, player_class)));
     }
     else{
-        m_players.push(*(std::unique_ptr<Fighter>(new Fighter(name, player_class))));
+        m_players.push_back(std::unique_ptr<Fighter>(new Fighter(name, player_class)));
     }
 }
 
@@ -90,8 +96,6 @@ bool Mtmchkin::isClassValid(std::string &player_class) {
     }
     return true;
 }
-
-
 
 int Mtmchkin::receiveNumOfPlayersInput()
 {
@@ -116,40 +120,41 @@ int Mtmchkin::receiveNumOfPlayersInput()
     return numOfPlayers;
 }
 
-void Mtmchkin::checkAndPushCardType(std::string& line){
+void Mtmchkin::checkAndPushCardType(std::string& line, int index)
+{
     if(line == "Barfight"){
-        m_deck.push(*(std::unique_ptr<Card>(new Barfight())));
+        m_deck.push(std::unique_ptr<Card>(new Barfight()));
         return;
     }
     if(line == "Dragon"){
-        m_deck.push(*(std::unique_ptr<Card>(new Dragon())));
+        m_deck.push(std::unique_ptr<Card>(new Dragon()));
         return;
     }
     if(line == "Fairy"){
-        m_deck.push(*(std::unique_ptr<Card>(new Fairy())));
+        m_deck.push(std::unique_ptr<Card>(new Fairy()));
         return;
     }
     if(line == "Goblin"){
-        m_deck.push(*(std::unique_ptr<Card>(new Goblin())));
+        m_deck.push(std::unique_ptr<Card>(new Goblin()));
         return;
     }
     if(line == "Merchant"){
-        m_deck.push(*(std::unique_ptr<Card>(new Merchant())));
+        m_deck.push(std::unique_ptr<Card>(new Merchant()));
         return;
     }
     if(line == "Pitfall"){
-        m_deck.push(*(std::unique_ptr<Card>(new Pitfall())));
+        m_deck.push(std::unique_ptr<Card>(new Pitfall()));
         return;
     }
     if(line == "Treasure"){
-        m_deck.push(*(std::unique_ptr<Card>(new Treasure())));
+        m_deck.push(std::unique_ptr<Card>(new Treasure()));
         return;
     }
     if(line == "Vampire"){
-        m_deck.push(*(std::unique_ptr<Card>(new Vampire())));
+        m_deck.push(std::unique_ptr<Card>(new Vampire()));
         return;
     }
-    //throw DeckFileFormatError;
+    throw DeckFileFormatError(index);
 }
 
 
