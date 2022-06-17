@@ -9,7 +9,8 @@ static const int FORCE_POINTS_PRICE = 10;
 void Merchant::applyEncounter(Player &player) const {
     printMerchantInitialMessageForInteractiveEncounter(std::cout, player.getPlayerName(), player.getNumberOfCoins());
     char input[1];
-    std::cin.getline(input, 1);
+    //std::cin.getline(input, 1);
+    std::cin >> input;
     while (input[0] != '0' && input[0] != '1' && input[0] != '2') {
         printInvalidInput();
         std::cin.getline(input, 1);
@@ -22,6 +23,7 @@ void Merchant::applyEncounter(Player &player) const {
     {
         if(player.getNumberOfCoins() >= HEAL_POINTS_PRICE){
             printMerchantSummary(std::cout, player.getPlayerName(), 1, HEAL_POINTS_PRICE);
+            player.pay(HEAL_POINTS_PRICE);
             player.heal(1);
         }
         else{
@@ -33,6 +35,7 @@ void Merchant::applyEncounter(Player &player) const {
     {
         if(player.getNumberOfCoins() >= FORCE_POINTS_PRICE) {
             printMerchantSummary(std::cout, player.getPlayerName(), 2, FORCE_POINTS_PRICE);
+            player.pay(FORCE_POINTS_PRICE);
             player.buff(1);
         }
         else{

@@ -17,21 +17,18 @@ public:
     DeckFileFormatError(int index)
     {
         this->m_index = index;
-        this->m_message = "Deck File Error: File format error in line";
     }
 
     const char * what() const noexcept override
     {
-
-        char index[32];
-        sprintf(index, "%d", m_index);
-        strcat(m_message, index);
-        return m_message;
+        std::string message = "Deck File Error: File format error in line " + std::to_string(m_index)+"\0";
+        char* tempString = new char[message.size()];
+        std::strcpy(tempString, message.c_str());
+        return tempString;
     }
 
 private:
     int m_index;
-    char * m_message;
 };
 
 class DeckFileInvalidSize : public std::exception{

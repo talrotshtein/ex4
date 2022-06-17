@@ -15,7 +15,7 @@ Mtmchkin::Mtmchkin(const std::string fileName)
     m_deadPlayers = 0;
     m_playersWon = 0;
     std::ifstream source(fileName);
-    if(!source){
+    if(!source.is_open()){
         throw DeckFileNotFound();
     }
     std::string line;
@@ -100,9 +100,9 @@ void Mtmchkin::addNewPlayer() {
     std::string inputName;
     std::string inputClass;
     bool validName = false, validClass = false;
-    while (!validName && !validClass)
+    printInsertPlayerMessage();
+    while (!validName || !validClass)
     {
-        printInsertPlayerMessage();
         std::cin >> inputName;
         std::cin >> inputClass;
         if(isNameValid(inputName)){
