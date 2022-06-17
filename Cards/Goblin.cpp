@@ -23,6 +23,7 @@ void Goblin::applyEncounter(Player &player) const {
 }
 
 std::ostream &Goblin::print(std::ostream &os) const {
+    printCardDetails(os, "Goblin");
     printMonsterDetails(os, FORCE, DAMAGE, LOOT, false);
     printEndOfCardDetails(os);
     return os;

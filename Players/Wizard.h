@@ -2,7 +2,7 @@
 // Created by Tal on 6/10/2022.
 //
 #include "Player.h"
-#include "utilities.h"
+#include "../utilities.h"
 #ifndef EX4_WIZARD_H
 #define EX4_WIZARD_H
 

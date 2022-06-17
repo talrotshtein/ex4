@@ -37,7 +37,7 @@ Mtmchkin::Mtmchkin(const std::string fileName)
 void Mtmchkin::playRound()
 {
     printRoundStartMessage(++m_round);
-    for (int i = 0; i < m_players.size(); ++i)
+    for (int i = 0; (unsigned)i < m_players.size(); ++i)
     {
         if(!m_players[i]->isKnockedOut() && m_players[i]->getLevel() < MAXIMUM_PLAYER_LEVEL)
         {
@@ -64,7 +64,7 @@ void Mtmchkin::playRound()
 
 void Mtmchkin::printLeaderBoard() const {
     printLeaderBoardStartMessage();
-    for (int i = 0; i < m_players.size(); ++i)
+    for (int i = 0; (unsigned)i < m_players.size(); ++i)
     {
         printPlayerLeaderBoard(i+1, *m_players[i]);
     }
@@ -93,7 +93,7 @@ int Mtmchkin::getNumberOfRounds() const {
 }
 
 bool Mtmchkin::isGameOver() const {
-    return m_playersWon + m_deadPlayers == m_players.size();
+    return (unsigned)(m_playersWon + m_deadPlayers) == m_players.size();
 }
 
 void Mtmchkin::addNewPlayer() {
