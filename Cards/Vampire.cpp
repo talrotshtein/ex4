@@ -24,6 +24,17 @@ void Vampire::applyEncounter(Player &player) const {
     }
 }
 
+void Vampire::applyInGangEncounter(Player &player, bool punishOnly) const {
+    if(punishOnly || player.getAttackStrength() < FORCE){
+        printLossBattle(player.getPlayerName(), "Vampire");
+        player.damage(DAMAGE);
+        player.nerf(NERF_UPON_LOSS);
+    }
+    else{
+        player.addCoins(LOOT);
+    }
+}
+
 std::ostream &Vampire::print(std::ostream &os) const {
     printCardDetails(os, "Vampire");
     printMonsterDetails(os, FORCE, DAMAGE, LOOT, false);

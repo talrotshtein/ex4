@@ -1,6 +1,12 @@
+Gang
 Dragon
-Pitfall
-Barfight
-Fairy
 Goblin
-Vampire
+Goblin
+Goblin
+EndGang
+Pitfall
+Pitfall
+Pitfall
+Pitfall
+Pitfall
+Pitfall

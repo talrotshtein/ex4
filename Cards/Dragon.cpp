@@ -21,6 +21,16 @@ void Dragon::applyEncounter(Player &player) const {
     }
 }
 
+void Dragon::applyInGangEncounter(Player &player, bool punishOnly) const {
+    if(punishOnly || player.getAttackStrength() < FORCE){
+        printLossBattle(player.getPlayerName(), "Dragon");
+        player.damage(player.getCurrentHp());
+    }
+    else{
+        player.addCoins(LOOT);
+    }
+}
+
 std::ostream &Dragon::print(std::ostream &os) const {
     printCardDetails(os, "Dragon");
     printMonsterDetails(os, FORCE, 0, LOOT, true);

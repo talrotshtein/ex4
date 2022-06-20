@@ -10,8 +10,9 @@ int main(){
         Mtmchkin game("inputs/deck.txt");
         while(!game.isGameOver() && game.getNumberOfRounds() < MAX_NUMBER_OF_ROUNDS){
             game.playRound();
+            game.printLeaderBoard();
         }
-        game.printLeaderBoard();
+        //game.printLeaderBoard();
     }
     catch(std::exception &e){
         std::cout << e.what();

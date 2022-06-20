@@ -6,6 +6,7 @@
 #include <memory>
 #include "Players/Player.h"
 #include "Cards/Card.h"
+#include "Cards/Gang.h"
 #include "Cards/Vampire.h"
 #include "Cards/Barfight.h"
 #include "Cards/Dragon.h"
@@ -72,6 +73,7 @@ private:
     std::queue<std::unique_ptr<Card>> m_deck;
     std::vector<std::unique_ptr<Player>> m_players;
     void checkAndPushCardType(std::string& line, int index);
+    void pushGang(std::ifstream& source, int index);
     static int receiveNumOfPlayersInput();
     void addNewPlayer();
     static bool isNameValid(std::string& name);

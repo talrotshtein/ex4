@@ -13,8 +13,10 @@ protected:
 public:
     Card(const std::string &name);
     virtual void applyEncounter(Player& player) const = 0;
+    virtual void applyInGangEncounter(Player& player, bool punishOnly) const{}
     virtual std::ostream& print(std::ostream& os) const = 0;
     friend std::ostream& operator<<(std::ostream& os, const Card& card);
+    virtual ~Card() = default;
 };
 
 #endif //EX4_CARD_H

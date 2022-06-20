@@ -22,7 +22,13 @@ Mtmchkin::Mtmchkin(const std::string fileName)
     int index  = 1;
     while (std::getline(source, line))
     {
-        checkAndPushCardType(line, index);
+        if(line == "Gang"){
+            index++;
+            pushGang(source, index);
+        }
+        else{
+            checkAndPushCardType(line, index);
+        }
         index++;
     }
     if(m_deck.size() < MINIMUM_DECK_SIZE) {
@@ -215,6 +221,34 @@ void Mtmchkin::checkAndPushCardType(std::string& line, int index)
         return;
     }
     throw DeckFileFormatError(index);
+}
+
+void Mtmchkin::pushGang(std::ifstream &source, int index) {
+    //Gang* newGang = new Gang();
+    std::unique_ptr<Gang> newGang = std::unique_ptr<Gang>(new Gang());
+    std::string line;
+    std::getline(source, line);
+    while (line != "EndGang")
+    {
+        if(line == "Dragon")
+        {
+            newGang->addMonster("Dragon");
+        }
+        else if(line == "Goblin")
+        {
+            newGang->addMonster("Goblin");
+        }
+        else if(line == "Vampire")
+        {
+            newGang->addMonster("Vampire");
+        }
+        else{
+            throw DeckFileFormatError(index);
+        }
+        std::getline(source, line);
+        index++;
+    }
+    m_deck.push(std::move(newGang));
 }
 
 

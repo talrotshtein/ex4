@@ -9,6 +9,7 @@ class Dragon : public Card{
 public:
     Dragon() : Card("Dragon"){}
     void applyEncounter(Player& player) const override;
+    void applyInGangEncounter(Player& player, bool punishOnly) const override;
     std::ostream& print(std::ostream& os) const override;
 };
 

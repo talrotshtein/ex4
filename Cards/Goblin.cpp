@@ -22,6 +22,16 @@ void Goblin::applyEncounter(Player &player) const {
     }
 }
 
+void Goblin::applyInGangEncounter(Player &player, bool punishOnly) const {
+    if(punishOnly || player.getAttackStrength() < FORCE){
+        printLossBattle(player.getPlayerName(), "Goblin");
+        player.damage(DAMAGE);
+    }
+    else{
+        player.addCoins(LOOT);
+    }
+}
+
 std::ostream &Goblin::print(std::ostream &os) const {
     printCardDetails(os, "Goblin");
     printMonsterDetails(os, FORCE, DAMAGE, LOOT, false);

@@ -9,7 +9,6 @@ static const int FORCE_POINTS_PRICE = 10;
 void Merchant::applyEncounter(Player &player) const {
     printMerchantInitialMessageForInteractiveEncounter(std::cout, player.getPlayerName(), player.getNumberOfCoins());
     char input[1];
-    //std::cin.getline(input, 1);
     std::cin >> input;
     while (input[0] != '0' && input[0] != '1' && input[0] != '2') {
         printInvalidInput();
